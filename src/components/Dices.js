@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const Dices = ({ game, updateGame }) => {
 
@@ -18,7 +18,7 @@ const Dices = ({ game, updateGame }) => {
     }
 
     return (
-        <div>
+        <div className="container">
             Moves: {game.moves.sort().toString()}
         </div>
 

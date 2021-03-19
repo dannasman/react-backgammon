@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import playerService from '../services/players'
 
 const Games = ({ games, updateGame, createPlayer }) => {
     return (

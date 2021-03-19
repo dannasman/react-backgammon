@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import './Checker.css'
+import React from 'react'
 
 const Checker = ({ checker, point }) => {
     const checkerStyle = {
