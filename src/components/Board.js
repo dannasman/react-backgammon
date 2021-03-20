@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Triangle from './Triangle'
 import Dices from './Dices'
+import styles from './Board.module.css'
 
 const Board = ({ game, updateGame, exitGame }) => {
     const [selectedTriangle, setSelectedTriangle] = useState(game.whiteTurn ? -1 : 24)
@@ -55,9 +56,9 @@ const Board = ({ game, updateGame, exitGame }) => {
     const handleTriangleClick = (point) => {
         const color = game.whiteTurn ? 'w' : 'b'
         const k = game.whiteTurn ? 1 : -1
-        console.log(selectedTriangle, point)
+        console.log(game)
+        const helper = game.whiteTurn ? 23 : 0
         if (readyForTakingHome(color)) {
-            const helper = game.whiteTurn ? 23 : 0
             console.log(helper - point + 1)
             if ((selectedTriangle === -1 || selectedTriangle === 24) && game.state[point].includes(color)) {
                 setSelectedTriangle(point)
@@ -67,7 +68,6 @@ const Board = ({ game, updateGame, exitGame }) => {
             }
             else if ((selectedTriangle !== -1 && selectedTriangle !== 24) && game.moves.find(m => selectedTriangle + k * m === point)) {
                 if (game.state[point].length < 2 || game.state[point].includes(color)) {
-                    console.log('läpi')
                     makeMove(point, color, k)
                 }
             }
@@ -90,7 +90,7 @@ const Board = ({ game, updateGame, exitGame }) => {
             setSelectedTriangle(game.whiteTurn ? -1 : 24)
         }
 
-        else if ((selectedTriangle === -1 || selectedTriangle === 24) && game.eaten[color].length !== 0 && !game.moves.find(m => selectedTriangle + k * m === point)) {
+        else if ((selectedTriangle === -1 || selectedTriangle === 24) && game.eaten[color].length !== 0 && !game.moves.find(m => game.state[selectedTriangle + k * m].includes(color) || game.state[selectedTriangle + k * m].length < 2)) {
             const updatedGame = { ...game, moves: [], whiteTurn: !game.whiteTurn }
             updateGame(updatedGame)
         }
@@ -98,6 +98,7 @@ const Board = ({ game, updateGame, exitGame }) => {
 
     const endTurn = () => {
         const updatedGame = { ...game, whiteTurn: !game.whiteTurn, moves: [] }
+        setSelectedTriangle(updateGame.whiteTurn ? -1 : 24)
         updateGame(updatedGame)
     }
 
@@ -121,7 +122,7 @@ const Board = ({ game, updateGame, exitGame }) => {
 
     return (
         <div className="container">
-            < div className="container" style={boardStyle}>
+            <div className="container" style={boardStyle}>
                 <div className="row" style={sideStyle}>
                     {game.state.filter((s, i) => i < 12).reverse().map((s, i) => <Triangle key={11 - i} game={game} selectedTriangle={selectedTriangle} checkers={s} point={11 - i} handleTriangleClick={handleTriangleClick} />)}
                 </div>
