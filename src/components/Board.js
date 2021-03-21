@@ -56,8 +56,8 @@ const Board = ({ game, updateGame, exitGame }) => {
     const handleTriangleClick = (point) => {
         const color = game.whiteTurn ? 'w' : 'b'
         const k = game.whiteTurn ? 1 : -1
-        console.log(game)
         const helper = game.whiteTurn ? 23 : 0
+
         if (readyForTakingHome(color)) {
             console.log(helper - point + 1)
             if ((selectedTriangle === -1 || selectedTriangle === 24) && game.state[point].includes(color)) {
