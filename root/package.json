@@ -1,0 +1,14 @@
+{
+  "name": "backgammon",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "concurrently \"cd backgammon-backend && npm run dev\" \"cd backgammon-frontend && npm start\" "
+  },
+  "author": "Dan Näsman",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "concurrently": "^6.0.2"
+  }
+}
